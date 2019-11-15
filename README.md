@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Instructions to run on local
 
-Once you've obtained a copy of the repo the project directory, you can run:
+Once you've obtained a copy of the repo. Run the following command in the project directory:
 
 ### `npm install`
 
