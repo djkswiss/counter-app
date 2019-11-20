@@ -1,27 +1,27 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
+import { render, fireEvent, waitForElement } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 
 import App from './App';
-import { exportAllDeclaration } from '@babel/types';
+import { exportAllDeclaration, tsExternalModuleReference } from '@babel/types';
 
-let container = null;
-beforeEach(() => {
-  //setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container)
+test('loads and increments row counter', async () => {
+  
+  const {getByTestId } = render(<App />)
+
+  fireEvent.click(getByTestId('incrementButton1'))
+
+  const counterRow = await waitForElement(() => getByTestId('counterRow1'))  
+  expect(getByTestId('spanRow1')).toHaveTextContent('1')
 });
 
-afterEach(() => {
-  //cleanup on exiting
-  ReactDOM.unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
+test('loads and increments navbar counter', async () => {
+  
+  const {getByTestId, getByText } = render(<App />)
 
-it('renders without crashing', () => {
-  ReactTestUtils.act(() => {
-    ReactDOM.render(<App />, container);
-  });
-  expect(container.querySelector("span").textContent).toBe("0");
+  fireEvent.click(getByTestId('incrementButton1'))
+  fireEvent.click(getByTestId('incrementButton2'))
+
+  const counterRow = await waitForElement(() => getByTestId('counterRow1'))  
+  expect(getByText('Navbar')).toHaveTextContent('2')
 });

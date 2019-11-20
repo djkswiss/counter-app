@@ -16,11 +16,17 @@ class Counter extends Component {
   render() {
     console.log("Counter Rendered");
     return (
-      <div>
+      <div data-testid={"counterRow" + this.props.counter.id}>
         {this.props.children}
-        <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
+        <span
+          className={this.getBadgeClasses()}
+          data-testid={"spanRow" + this.props.counter.id}
+        >
+          {this.formatCount()}
+        </span>
         <button
           onClick={() => this.props.onIncrement(this.props.counter)}
+          data-testid={"incrementButton" + this.props.counter.id}
           className="btn btn-secondary btn-sm"
         >
           Increment
